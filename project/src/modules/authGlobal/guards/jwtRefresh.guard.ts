@@ -13,12 +13,12 @@ export default class JwtRefreshGuard implements CanActivate {
       .switchToHttp()
       .getRequest<Request & { user: AuthDataType }>();
 
-    const token = req.headers.authorization || '';
-    const splitedToken = token.split(' ');
-    if (splitedToken.length < 2) return false;
+    const refresh = req.body?.refresh;
+
+    if (!refresh) return false;
 
     const authData = this.jwtVerify.verify(
-      splitedToken[1],
+      refresh,
       getEnv('JWT_REFRESH_TOKEN_SECRET') as string,
     );
 

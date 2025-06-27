@@ -19,7 +19,7 @@ export class AllHttpExceptionsFilter implements ExceptionFilter {
     let status = exception['status'] || HttpStatus.INTERNAL_SERVER_ERROR;
     let code =
       exception['code'] ||
-      exception['response']?.code ||
+      exception['response']?.error ||
       'INTERNAL_SERVER_ERROR';
 
     let message =
